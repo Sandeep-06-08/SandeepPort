@@ -65,4 +65,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 500);
 });
 
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value,
+    };
+
+    try {
+        const res = await fetch("/api/send", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+            window.location.href = "tick.html";
+        } else {
+            alert("Error sending email. Please try again.");
+        }
+    } catch (err) {
+        console.error("Error:", err);
+        alert("Network error.");
+    }
+});
+
 typeEffect();
