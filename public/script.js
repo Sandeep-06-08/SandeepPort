@@ -65,42 +65,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 500);
 });
 
-ddocument.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("contactForm");
-
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const formData = {
-        name: form.name.value,
-        email: form.email.value,
-        subject: form.subject.value,
-        message: form.message.value,
-      };
-
-      try {
-        const response = await fetch("/api/send", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-          // ✅ Email sent successfully — redirect to tick.html
-          window.location.href = "/tick.html";
-        } else {
-          alert("❌ Failed to send email.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("❌ Network error.");
-      }
-    });
-  }
-});
-
 
 typeEffect();
