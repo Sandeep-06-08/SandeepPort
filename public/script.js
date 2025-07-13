@@ -65,35 +65,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 500);
 });
 
-document.getElementById("contactForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+ddocument.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contactForm");
 
-    const form = e.target;
-    const data = {
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = {
         name: form.name.value,
         email: form.email.value,
         subject: form.subject.value,
         message: form.message.value,
-    };
+      };
 
-    try {
-        const res = await fetch("/api/send", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+      try {
+        const response = await fetch("/api/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         });
 
-        if (res.ok) {
-            window.location.href = "/tick.html";
+        if (response.ok) {
+          // ✅ Email sent successfully — redirect to tick.html
+          window.location.href = "/tick.html";
         } else {
-            alert("Error sending email. Please try again.");
+          alert("❌ Failed to send email.");
         }
-    } catch (err) {
-        console.error("Error:", err);
-        alert("Network error.");
-    }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("❌ Network error.");
+      }
+    });
+  }
 });
+
 
 typeEffect();
