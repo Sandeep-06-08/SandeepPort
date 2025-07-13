@@ -86,7 +86,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
         });
 
         if (res.ok) {
-            window.location.href = "tick.html";
+            window.location.href = "/tick.html";
         } else {
             alert("Error sending email. Please try again.");
         }
